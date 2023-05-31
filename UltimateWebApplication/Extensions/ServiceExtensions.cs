@@ -28,6 +28,6 @@ namespace UltimateWebApplication.Extensions
 
         //NLog Configuration
         public static void ConfigureLoggerService(this IServiceCollection services)=>
-            services.AddScoped<ILoggerManager, LoggerManager>();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
     }
 }
