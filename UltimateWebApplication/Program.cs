@@ -1,3 +1,4 @@
+using Contracts;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
 using UltimateWebApplication.Extensions;
@@ -27,12 +28,11 @@ builder.Services.AddControllers().AddApplicationPart(typeof(Presentation.Assembl
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+var logger = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigureExceptionHandler(logger);
 //Adding mandatory methods
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-else
+if(app.Environment.IsProduction())
 {
     app.UseHsts();
 }

@@ -9,7 +9,11 @@ namespace Repository.EntityRepository
         {
         }
 
-        
+        public Company GetCompany(Guid companyId, bool trackChanges)
+        {
+            Company company = FindByCondition(id => id.Id == companyId, trackChanges).SingleOrDefault();
+            return company;
+        }
 
         public IEnumerable<Company> GetAllCompany(bool trackChanges)
         {

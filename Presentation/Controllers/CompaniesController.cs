@@ -17,15 +17,15 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetCompanies()
         {
-            try
-            {
-                var Get = _service.CompanyService.GetAllCompanies(trackChanges: false);
-                return Ok(Get);
-            }
-            catch 
-            {
-                return StatusCode(500, "Internal server error");
-            }
+            var comapnies = _service.CompanyService.GetAllCompanies(trackChanges: false);
+            return Ok(comapnies);          
+        }
+
+        [HttpGet("{id:guid}")]
+        public IActionResult GetCompany(Guid id) 
+        {
+            var company = _service.CompanyService.GetCompanyById(id, trackChanges: false);
+            return Ok(company);
         }
     }
 }

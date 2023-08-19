@@ -18,21 +18,19 @@ namespace Services.EntityServices
         }
 
         public IEnumerable<CompanyDto> GetAllCompanies(bool trackChanges)
+        {        
+            _loggerManager.LogInfo("trying to get all companies");
+            var companies =_repositoryManager.CompanyRepository.GetAllCompany(trackChanges);
+            var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+            _loggerManager.LogInfo(" Comapnies data successfully retrieved from database .Attempting to return data");
+           return companiesToReturn;          
+        }
+
+        public CompanyDto GetCompanyById(Guid id, bool trackChanges)
         {
-            try
-            {
-                _loggerManager.LogInfo("trying to get all companies");
-                var companies =_repositoryManager.CompanyRepository.GetAllCompany(trackChanges);
-                var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companies);
-                _loggerManager.LogInfo(" Comapnies data successfully retrieved from database .Attempting to return data");
-                return companiesToReturn;
-            }
-            catch (Exception ex)
-            {
-                _loggerManager.LogError($"Something went wrong in the name of {GetAllCompanies} service method { ex} ");              
-                throw;
-            }
-               
+            var company = _repositoryManager.CompanyRepository.GetCompany(id, trackChanges);
+            var companyDto = _mapper.Map<CompanyDto>(company);
+            return companyDto;
         }
     }
 }
