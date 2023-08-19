@@ -1,5 +1,9 @@
 ﻿using Contracts;
 using LoggerService;
+using Microsoft.EntityFrameworkCore;
+using Repository;
+using Service.Contracts.CommonIService;
+using Services.CommonServices;
 
 namespace UltimateWebApplication.Extensions
 {
@@ -28,6 +32,14 @@ namespace UltimateWebApplication.Extensions
 
         //NLog Configuration
         public static void ConfigureLoggerService(this IServiceCollection services)=>
-            services.AddSingleton<ILoggerManager, LoggerManager>();
+            services.AddScoped<ILoggerManager, LoggerManager>();
+
+        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
+            => services.AddDbContext<RepositoryContext>(option => option.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+
+        public static void ConfigureRepositoryManager(this IServiceCollection services)
+            => services.AddScoped<IRepositoryManager, RepositoryManager>();
+        public static void ConfigureServiceManager(this IServiceCollection services) 
+            => services.AddScoped<IServiceManager, ServiceManager>();
     }
 }

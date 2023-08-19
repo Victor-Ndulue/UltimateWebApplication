@@ -1,16 +1,11 @@
 ﻿using Contracts;
 using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoggerService
 {
     public class LoggerManager : ILoggerManager
     {
-        //Instatiating an object of logger using method.
+        //Instantiating an object of logger using method.
         private static ILogger logger = LogManager.GetCurrentClassLogger();
         public void LogDebug(string message)
         {
